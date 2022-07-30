@@ -5,11 +5,11 @@ on:
   push:
     branches:
       - main
+      - testBranch
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
       - main
-
 jobs:
   build_and_deploy_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
@@ -32,6 +32,7 @@ jobs:
           api_location: "api" # Api source code path relative to repository root - optional
           output_location: "" # Built app content directory, relative to app_location - optional
           ###### End of Repository/Build Configurations ######
+          production_branch: "main"
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
